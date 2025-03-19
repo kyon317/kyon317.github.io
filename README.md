@@ -19,4 +19,4 @@ Here are some of the exciting features and modifications I aim to implement:
 
 ---
 
-Thank you for visiting, and I hope you enjoy the journey!
+Thank you for visiting, and I hope you enjoy your stay!
