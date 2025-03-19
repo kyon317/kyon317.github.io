@@ -1,0 +1,41 @@
+---
+title: Single Shot Detection
+date: '2024-11-11'
+tags: ['deep learning', 'vision']
+draft: false
+summary: 'A breif implementation to reproduce Single Shot Detection model'
+images: ['/static/images/SSD.png']
+---
+
+# Introduction
+
+The project implements the Single Shot Detection (SSD) algorithm, originally introduced in the paper ["SSD: Single Shot MultiBox Detector"](https://arxiv.org/abs/1512.02325). SSD is a real-time object detection model that balances speed and accuracy, making it effective for applications like autonomous driving and real-time surveillance.
+
+# Overview of SSD
+
+Unlike two-stage detectors like Faster R-CNN, SSD is a single-stage detector, meaning it directly predicts object classes and bounding boxes in one forward pass of the network. This efficiency comes from its multi-scale feature maps and convolutional predictors, allowing it to detect objects at different scales with minimal computational overhead.
+
+SSD consists of a base network (e.g., VGG16) for feature extraction and additional convolutional layers for multi-scale detection. The key aspects of SSD include:
+
+- **Multi-scale feature maps**: Predictions are made at different layers, detecting both small and large objects.
+- **Default boxes (anchor boxes)**: Predefined boxes at various aspect ratios help detect objects of different shapes efficiently.
+- **Hard negative mining**: Balances positive and negative samples to stabilize training.
+- **Smooth L1 and cross-entropy loss**: Optimizes bounding box regression and classification simultaneously.
+
+# Implementation Details
+
+The implementation follows the standard SSD pipeline:
+
+1. **Backbone Network**: A modified VGG16 extracts feature maps.
+2. **Multi-scale Detection**: Additional convolutional layers process these maps.
+3. **Anchor Matching**: Ground truth boxes are assigned to predefined anchors.
+4. **Loss Computation**: Classification (cross-entropy) and localization (Smooth L1) losses are computed.
+5. **Training with Augmentations**: Data augmentation (random cropping, flipping, color distortions) improves robustness.
+
+# Conclusion
+
+SSD offers a fast and efficient solution for real-time object detection. While it may not match the accuracy of transformer-based models like DETR, it remains a solid choice for resource-constrained environments. This implementation reproduces SSD with modifications for improved performance and flexibility.
+
+[View the Report Here](https://kyon317.github.io/SingleShotDetection/pdf-viewer.html)
+
+[Open in Github](https://github.com/kyon317/SingleShotDetection/)

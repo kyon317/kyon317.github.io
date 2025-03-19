@@ -6,21 +6,22 @@ interface Project {
 }
 
 const projectsData: Project[] = [
+  // {
+  //   title: 'A Search Engine',
+  //   description: `What if you could look up any information in the world? Webpages, images, videos
+  //   and more. Google has many features to help you find exactly what you're looking
+  //   for.`,
+  //   imgSrc: '/static/images/google.png',
+  //   href: 'https://www.google.com',
+  // },
   {
-    title: 'A Search Engine',
-    description: `What if you could look up any information in the world? Webpages, images, videos
-    and more. Google has many features to help you find exactly what you're looking
-    for.`,
-    imgSrc: '/static/images/google.png',
-    href: 'https://www.google.com',
-  },
-  {
-    title: 'The Time Machine',
-    description: `Imagine being able to travel back in time or to the future. Simple turn the knob
-    to the desired date and press "Go". No more worrying about lost keys or
-    forgotten headphones with this simple yet affordable solution.`,
-    imgSrc: '/static/images/time-machine.jpg',
-    href: '/blog/the-time-machine',
+    title: 'Single Shot Detection',
+    description: `This article implements Single Shot Detection (SSD), 
+    a fast object detection model using multi-scale feature maps and anchor boxes. 
+    It follows the standard SSD pipeline with a VGG16 backbone, 
+    enabling real-time performance with efficient bounding box predictions.`,
+    imgSrc: '/static/images/SSD.png',
+    href: '/blog/SSD',
   },
 ]
 
