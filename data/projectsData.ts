@@ -23,6 +23,12 @@ const projectsData: Project[] = [
     imgSrc: '/static/images/SSD.png',
     href: '/blog/SSD',
   },
+  {
+    title: 'Restaurant Quality App',
+    description: `An Android application to show qualities of restaurants in Surrey, Vancouver.`,
+    imgSrc: '/static/images/restaurant.png',
+    href: '/blog/restaurant-quality-app',
+  },
 ]
 
 export default projectsData
