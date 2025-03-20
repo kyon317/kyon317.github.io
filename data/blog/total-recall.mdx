@@ -11,12 +11,7 @@ images: ['/static/images/total-recall/detail.png']
 
 ## Introduction
 
-<Image
-  alt="An Overview of Total Recall"
-  src="/static/images/total-recall/detail.png"
-  width={256}
-  height={128}
-/>
+![An Overview of Total Recall](/static/images/total-recall/detail.png)
 **TotalRecall** is an advanced software framework designed to efficiently capture and analyze events
 of interest from lengthy surveillance videos. Developed by **Vincent Hu and Pengyu Cui**, this
 project integrates cutting-edge AI techniques to process video data and extract meaningful insights,
@@ -28,12 +23,7 @@ Surveillance videos generate an overwhelming amount of data, making manual revie
 
 ## Architecture
 
-<Image
-  alt="The Architecture of Total Recall"
-  src="/static/images/total-recall/framework.png"
-  width={256}
-  height={128}
-/>
+![The Architecture of Total Recall](/static/images/total-recall/framework.png)
 The **TotalRecall** framework consists of a **frontend** and a **backend**, working together to
 process video input and generate meaningful textual descriptions of detected events.{' '}
 
@@ -43,31 +33,20 @@ process video input and generate meaningful textual descriptions of detected eve
 ## Key Features
 
 - **Event Detection**: Identifies key objects and actions in video clips, answering fundamental questions like _“What’s in the video?”_ and _“What happened?”_.
-  <Image
-    alt="Frame Difference Analysis"
-    src="/static/images/total-recall/frames.png"
-    width={256}
-    height={128}
-  />
+  ![Frame Difference Analysis](/static/images/total-recall/frames.png)
 - **Frame Difference Analysis**: Uses a baseline method to detect changes between frames and segment events. The model visualizes results using an progress bar with energy, inspired by Youtube Video.
   An energy bar represents how significant an event is, based on the magnitude of detected motion or the rarity of an object appearing in the scene.
 - **Multi-Model Processing**:
-  <Image
-    alt="Florence-2 Results"
-    src="/static/images/total-recall/parking.png"
-    width={256}
-    height={128}
-  />
+  ![Florence-2 Results](/static/images/total-recall/parking.png)
+
   - **Florence-2**: Provides a unified representation for various vision tasks, improving event
-  recognition.
-  <Image
-    alt="LLaVa-Next-Video Inference Results"
-    src="/static/images/llava-next-video.png"
-    width={256}
-    height={128}
-  />
+    recognition.
+
+  ![LLaVa-Next-Video Inference Results](/static/images/total-recall/llava-next-video.png)
+
   - **LLaVa-Next-Video**: A fine-tuned model with strong zero-shot video understanding capabilities,
-  capable of processing long videos efficiently.{' '}
+    capable of processing long videos efficiently.{' '}
+
 - **GIS Integration**: Incorporates geospatial information for location-based event analysis, making it particularly useful for surveillance applications requiring geographic context.
 - **Efficient Video Summarization**: Converts long surveillance videos into structured event logs with descriptions, icons, and categorized event types.
 
@@ -80,12 +59,7 @@ process video input and generate meaningful textual descriptions of detected eve
 
 ## Results
 
-<Image
-  alt="Results of a scene, where an explosion occurs"
-  src="/static/images/total-recall/detail1.png"
-  width={256}
-  height={128}
-/>
+![Results of a scene, where an explosion occurs](/static/images/total-recall/detail1.png)
 **TotalRecall** effectively extracts meaningful events from surveillance footage, presenting them in
 an organized and accessible format. The integration of advanced AI models significantly improves
 video understanding, making the framework a valuable asset for **security, traffic monitoring, and
