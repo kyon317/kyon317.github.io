@@ -15,6 +15,12 @@ const projectsData: Project[] = [
   //   href: 'https://www.google.com',
   // },
   {
+    title: 'Total Recall',
+    description: `A Software Framework for Capturing Events of Interest from Long Surveillance Videos`,
+    imgSrc: '/static/images/total-recall/detail.png',
+    href: '/blog/total-recall',
+  },
+  {
     title: 'Single Shot Detection',
     description: `This article implements Single Shot Detection (SSD), 
     a fast object detection model using multi-scale feature maps and anchor boxes. 
