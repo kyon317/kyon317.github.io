@@ -1,0 +1,294 @@
+---
+title: Digital Twin - Your Data, Your Rules
+date: '2025-11-25'
+tags: ['artificial intelligence', 'human-computer interaction', 'data governance', 'conversational AI', 'multimodal']
+draft: false
+summary: 'A conversational AI agent that maintains structured memory of user-specific facts, mimics user face and voice, and exposes memory as an interactive surface for data governance'
+images:
+  - /static/images/digital-twin/abstract.png
+---
+
+# Digital Twin: What Does Your Digital Twin Know About You?
+
+## Introduction
+
+In an era where AI systems construct rich internal models of users across domains like health, education, and productivity, individuals are rarely allowed to see, understand, or meaningfully manipulate the data representations that AI systems maintain about them. Our project examines how people interact with and govern their personal **digital twin**, implemented as a conversational AI agent.
+
+![Visual Abstract](/static/images/digital-twin/abstract.png)
+
+This agent not only maintains a structured, persistent memory of user-specific facts, drawing on neuroscience memory concepts, but also mimics the user's face and voice to better assimilate their identity. We expose this memory as an interactive surface for data governance: users can inspect what the AI "knows" about them and accept, reject, or edit individual entries.
+
+## The Problem
+
+Traditional AI systems that personalize experiences are typically opaque and complex, making them difficult for people to inspect or control. While policy frameworks such as GDPR mandate individuals' rights to access, correct, and delete personal information, bridging the gap between these rights and people's actual experiences remains a core challenge for data governance.
+
+Most deployed AI systems provide shallow, output-level explanations and offer limited affordances for people to govern what the system knows about them. Privacy dashboards and data-download tools often present raw logs or static summaries that provide little support for meaningful understanding of one's personal data.
+
+## Our Approach
+
+We designed the digital twin not only as a personalization mechanism but as a means for ongoing negotiation over identity and consent. The system combines:
+
+- **Structured Memory System**: Three-tier memory architecture (semantic, episodic, procedural)
+- **Interactive Memory Governance**: Users can inspect, accept, reject, or edit AI memories
+- **Multimodal Embodiment**: 3D avatar with face reconstruction and voice cloning
+- **Visual Memory Exploration**: Interactive mind map visualization
+
+## Memory Architecture
+
+### Three-Tier Memory System
+
+Our memory system is designed to approximate key properties of human memory while maintaining compatibility with current databases and retrieval infrastructure. We adopt an architecture that mirrors the tripartite distinction between semantic, episodic, and procedural memory in cognitive science.
+
+![Memory System Architecture](/static/images/digital-twin/memory.png)
+
+#### 1. Semantic Memory (Facts)
+
+Semantic memory stores relatively stable, decontextualized knowledge about the user. Examples include:
+- Occupation
+- Long-term preferences
+- Biographical facts
+
+![Semantic Facts](/static/images/digital-twin/fact.png)
+
+#### 2. Episodic Memory
+
+Episodic memory captures situated events with explicit temporal and spatial tags. This includes:
+- Specific experiences and events
+- Time-stamped memories
+- Location-based context
+
+![Episodic Memories](/static/images/digital-twin/gptmem.png)
+
+#### 3. Procedural Rules
+
+Procedural memory encodes habits and if/then policies such as:
+- "When travelling, book flights with Airline X"
+- "If stressed, go for a walk"
+- Behavioral patterns and routines
+
+### Memory Governance
+
+A central design decision is to explicitly represent the provenance and approval state of each stored memory. Rather than treating all content as equally trustworthy, we differentiate between:
+
+- **AI-proposed**: Candidate memories suggested by the AI
+- **AI-confirmed**: Memories confirmed by repeated evidence
+- **User-confirmed**: Memories explicitly approved by the user
+
+![Memory Approval Interface](/static/images/digital-twin/reject_approve.png)
+
+Users can inspect, accept, reject, or edit memory entries through an intuitive interface:
+
+![Memory Check Interface](/static/images/digital-twin/memory_check.png)
+
+### Hybrid Search
+
+To support robust retrieval, we implement a hybrid search procedure across the combined memory space. The system performs:
+
+1. **Dense vector similarity search**: Using embeddings for semantic matching
+2. **Keyword-based search**: For exact matches and surface-level retrieval
+3. **Unified ranking**: Combining both approaches for optimal results
+
+This enables the system to retrieve relevant memories even when a query shares no surface words with the stored text.
+
+## Multimodal Embodiment
+
+### 3D Face Avatar
+
+To create an animatable avatar, we rebuild a triangular 3D face mesh with realistic texture. Our method uses:
+
+- **MediaPipe Face Mesh**: Detects 468 facial keypoints from a single RGB image
+- **Delaunay Triangulation**: Creates a triangular mesh from 2D landmark projections
+- **Texture Mapping**: Maps the original photo onto the 3D mesh using UV coordinates
+
+The resulting 3D model is saved in standard formats (OBJ) and rendered in real-time using WebGL and Three.js.
+
+#### Lip-Sync Animation
+
+The avatar's face animates to lip-sync with audio streams. The animation:
+
+- Analyzes audio in real-time using Web Audio API
+- Maps RMS loudness to mouth opening
+- Deforms jaw and lip vertices based on speech volume
+- Ensures temporal coherence between visual and auditory signals
+
+### Voice Cloning
+
+The voice subsystem extends the memory-and-avatar pipeline into a personalized audio modality. We use:
+
+- **Coqui XTTS v2**: Multilingual voice cloning architecture
+- **Few-shot Learning**: Adapts to user's voice from short audio samples (6-30 seconds)
+- **Streaming Synthesis**: Divides text into chunks for low-latency interaction
+- **Style Filtering**: Optional effects like "90s television" filter for varied timbres
+
+![Voice Cloning Interface](/static/images/digital-twin/voiceclone.png)
+
+The system supports 17 languages and provides zero-cost, self-hosted voice synthesis with optional GPU acceleration.
+
+### Integration Pipeline
+
+The multimodal response pipeline merges neural voice cloning with 3D face animation:
+
+![Frontend-Backend Pipeline](/static/images/digital-twin/frontend_backend_pipeline.png)
+
+- Text generation from GPT-4
+- Voice synthesis via Coqui XTTS
+- Lip-sync animation based on phoneme timings
+- Real-time rendering in browser using WebGL
+
+## Visual Memory Exploration
+
+### Mind Map Visualization
+
+To help users discover what the avatar knows without having to come up with prompts, we built an interactive mind map that displays everything about the avatar on a single screen.
+
+![Mind Map 2D View](/static/images/digital-twin/mindmap2d.png)
+
+![Mind Map 3D View](/static/images/digital-twin/mindmap.png)
+
+The mind map displays:
+- **Semantic facts** (profile_facts)
+- **Episodic memories** (episodic_memories)
+- **Procedural rules** (procedural_rules)
+
+Nodes are positioned based on similarity vectors, creating clusters of related memories. Users can switch between 2D and 3D views, as research shows better user experience when both interfaces are available.
+
+![Mind Map Prototype](/static/images/digital-twin/mindmap_prototype.png)
+
+## Communication Style
+
+The system learns and replicates the user's communication style by analyzing:
+
+- Word choice and vocabulary
+- Sentence structure and length
+- Tone and formality
+- Humor and personality markers
+- Common phrases and expressions
+
+![Style Configuration](/static/images/digital-twin/style.png)
+
+Users can manually configure style settings or use auto-analysis to extract style from existing memories.
+
+## User Study & Findings
+
+We conducted a think-aloud lab study where participants interacted with their personalized digital twin. Each participant:
+
+1. Fed personal facts and memories to the AI
+2. Curated the AI's memory (accepting, rejecting, or editing entries)
+3. Inspected the visual "Brain" memory map
+4. Conversed with an avatar "clone" of themselves
+
+### Key Findings
+
+#### Trust in Stored Memories
+
+Participants expressed **high trust in the accuracy of facts** stored by the digital twin (typically 6-7 on a 7-point scale), especially when facts were direct reiterations of what they provided. One participant noted: "*All the things that I said, they're all there. So, yes, I do trust.*"
+
+However, trust was higher for concrete, verifiable details than for inferred traits or generalizations. Participants trusted episodic memories more than personality traits.
+
+#### Comfort with Data Storage
+
+Participants raised privacy and security concerns. Many rated their comfort with the system storing personal information between **3-4 out of 7**. One participant warned: "*You should never fully depend... the AI model should actually never have your full data, in my opinion, because I think that's too intrusive.*"
+
+#### Sense of Control
+
+Most participants felt they had **moderate to high control** (5-7 out of 7) over what the digital twin learned. The memory governance interface was empowering - one participant was "*very happy that she can accept or reject memories; she wishes real-life memory could work this easily.*"
+
+![Settings Panel](/static/images/digital-twin/setting.png)
+
+#### Perceived Similarity
+
+Participants' ratings of similarity were **mixed, mostly in the low-to-moderate range** (3-4 out of 7). Common complaints included:
+- The digital twin didn't know enough to be truly similar
+- AI responses sounded robotic or generic
+- The 3D avatar looked "creepy" or "alien-like"
+- Voice cloning captured basic pitch but lost accent and intonation nuances
+
+#### Memory Governance Experience
+
+Participants found the ability to accept, reject, or edit memories valuable. Many accepted most AI proposals, especially when they were restatements of user input. However, when AI interpretations differed from user intent, participants actively used rejection/editing options.
+
+The mind map visualization was initially confusing but became useful after exploration. One participant described it as "*like a big diary, almost, that talks back to you.*"
+
+## Technical Implementation
+
+### Architecture
+
+The system is built with:
+
+- **Frontend**: Next.js 15.5 (App Router), TypeScript, Tailwind CSS v4
+- **Backend**: FastAPI (Python) for avatar and voice synthesis
+- **Database**: Supabase (PostgreSQL) with vector extensions
+- **AI**: OpenAI GPT-4 via AI SDK
+- **Voice**: Coqui AI XTTS-v2 (self-hosted)
+- **3D Rendering**: Three.js, WebGL
+
+### Data Flow
+
+1. User interacts with chat interface
+2. GPT-4 generates response using retrieved memories
+3. AI proposes new memories via function calling
+4. User reviews and approves/rejects proposals
+5. Confirmed memories stored in Supabase with embeddings
+6. Hybrid search retrieves relevant memories for future queries
+
+### Security & Privacy
+
+- Row-level security policies in Supabase
+- Authenticated sessions for all mutations
+- User-controlled voice profile storage
+- TTL (time-to-live) metadata for automatic expiration
+- "Wipe Data" functionality for complete deletion
+
+## Research Contributions
+
+Our work contributes to three main areas:
+
+1. **Design of Interactive Memory Governance**: We present a prototype that exposes AI memory as an interactive, user-editable representation, moving beyond static privacy controls.
+
+2. **User Experience Insights**: Through think-aloud studies, we characterize how people experience and respond to digital twin designs, including patterns of trust, discomfort, and sense-making.
+
+3. **Implications for Data Governance**: We derive implications for designing mechanisms that enable ongoing, memory-centric negotiation between individuals and their digital selves.
+
+## Connection to Human-Centered AI
+
+This project operationalizes principles from:
+
+- **Explainable AI**: Transparency embedded in interaction design
+- **Scrutable Systems**: Users can inspect and shape models
+- **Data Governance**: Granular control over personal data
+- **Value-Sensitive Design**: System behavior shaped by stakeholder values
+
+By letting users repeatedly inspect, correct, and delete memories, we build a user-facing layer around the machine learning loop, enabling intervention mid-loop rather than only at consent.
+
+## Demo Video
+
+<Video src="/static/video/digital-twin/demo.mp4" />
+
+## Future Directions
+
+Potential improvements and extensions:
+
+- **Enhanced Similarity**: Better capture of communication style, accent, and personality nuances
+- **Improved Avatar Quality**: More realistic 3D face reconstruction and animation
+- **Memory Influence Visualization**: Show which memories influenced specific responses
+- **Collaborative Memory**: Share and merge memories across multiple digital twins
+- **Temporal Memory Management**: Better handling of memory decay and importance over time
+
+## Conclusion
+
+This project demonstrates how AI systems can be designed with user agency and data governance at their core. By exposing memory as an interactive, editable surface, we enable users to "negotiate their identity" with AI systems, moving beyond one-way personalization toward collaborative identity construction.
+
+The combination of structured memory architecture, multimodal embodiment, and interactive governance creates a foundation for more transparent, controllable, and trustworthy AI systems. While challenges remain in achieving true similarity and user comfort, the framework provides a pathway toward human-centered AI that respects user autonomy and data sovereignty.
+
+## References
+
+- Park, J. S., et al. (2023). Generative Agents: Interactive Simulacra of Human Behavior
+- Jiang, J., et al. (2024). Long-Term Memory for LLMs: A Survey
+- Abdul, A., et al. (2018). Trends and Trajectories for Explainable, Accountable and Intelligible Systems
+- Chancellor, S. (2023). Human-Centered Machine Learning
+- Shneiderman, B. (2020). Human-Centered Artificial Intelligence
+
+## Project Repository
+
+The codebase is open-sourced and available on [GitHub](https://github.com/vitorhw/digitaltwin).
+
