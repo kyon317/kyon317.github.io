@@ -9,9 +9,9 @@ interface VideoProps {
 
 export default function Video({ src, type = 'video/mp4', controls = true, className }: VideoProps) {
   return (
-    <video 
-      controls={controls} 
-      className={className} 
+    <video
+      controls={controls}
+      className={className}
       style={{ width: '100%', maxWidth: '800px', margin: '1rem 0' }}
       preload="metadata"
       playsInline
@@ -21,4 +21,3 @@ export default function Video({ src, type = 'video/mp4', controls = true, classN
     </video>
   )
 }
-

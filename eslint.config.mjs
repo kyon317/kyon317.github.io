@@ -67,4 +67,10 @@ export default [
       '@typescript-eslint/ban-ts-comment': 'off',
     },
   },
+  {
+    files: ['components/Video.tsx'],
+    rules: {
+      'jsx-a11y/media-has-caption': 'off',
+    },
+  },
 ]
