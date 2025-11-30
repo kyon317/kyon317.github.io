@@ -15,6 +15,13 @@ const projectsData: Project[] = [
   //   href: 'https://www.google.com',
   // },
   {
+    title: 'Learned Motion Matching',
+    description: `An implementation of Learned Motion Matching with deep neural networks for real-time character animation. 
+    This project combines traditional motion matching algorithms with deep learning to create smooth, responsive character animations.`,
+    imgSrc: '/static/images/motion-matching/lmm_walk.gif',
+    href: '/blog/learned-motion-matching',
+  },
+  {
     title: 'Total Recall',
     description: `A Software Framework for Capturing Events of Interest from Long Surveillance Videos`,
     imgSrc: '/static/images/total-recall/detail.png',

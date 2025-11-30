@@ -1,0 +1,9 @@
+name: nextjs-blog
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - nodejs=20
+  - pip
+  - python=3.11
+

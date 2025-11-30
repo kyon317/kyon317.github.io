@@ -94,6 +94,23 @@ module.exports = () => {
         use: ['@svgr/webpack'],
       })
 
+      // Enable watch mode for better file change detection (both client and server)
+      if (options.dev) {
+        config.watchOptions = {
+          ...config.watchOptions,
+          ignored: [
+            ...(Array.isArray(config.watchOptions?.ignored) 
+              ? config.watchOptions.ignored 
+              : [config.watchOptions?.ignored].filter(Boolean)),
+            '**/node_modules/**',
+            '**/.git/**',
+            '**/.next/**',
+          ],
+          poll: 1000, // Check for changes every second (useful for Windows)
+          aggregateTimeout: 300, // Delay before rebuilding once the first file changed
+        }
+      }
+
       return config
     },
   })
