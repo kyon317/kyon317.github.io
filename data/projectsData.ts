@@ -6,6 +6,13 @@ interface Project {
 }
 
 const projectsData: Project[] = [
+  {
+    title: 'F3AMD: Fast Autoregressive Motion Diffusion',
+    description:
+      'SCA 2026 / Computer Graphics Forum. Co-authored research on efficient multi-character motion synthesis with Fourier Neural Operators, FiLM conditioning, and low-step diffusion sampling.',
+    imgSrc: '/static/images/f3amd/crowd-comparison.png',
+    href: '/blog/f3amd',
+  },
   // {
   //   title: 'A Search Engine',
   //   description: `What if you could look up any information in the world? Webpages, images, videos

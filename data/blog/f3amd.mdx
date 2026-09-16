@@ -1,0 +1,79 @@
+---
+title: 'F3AMD: Fast Autoregressive Motion Diffusion'
+date: '2026-09-16T12:00:00Z'
+tags: ['deep learning', 'computer graphics', 'animation', 'diffusion', 'research']
+draft: false
+summary: 'Our SCA 2026 paper explores faster multi-character motion synthesis with Fourier Neural Operators, FiLM conditioning, and efficient diffusion sampling.'
+images:
+  - /static/images/f3amd/crowd-comparison.png
+---
+
+# F3AMD: Scaling Motion Diffusion to Crowds
+
+## Introduction
+
+Animating one responsive character is already demanding. Animating a crowd makes the cost of every model layer and every denoising step matter. **F3AMD** addresses this problem: how can an autoregressive diffusion model generate varied, controllable character motion while leaving enough computation for the rest of an interactive application?
+
+I am a co-author of **F3AMD: Fast FiLM-Conditioned Fourier Autoregressive Motion Diffusion**, published in _Computer Graphics Forum_, volume 45, issue 8, for **SCA 2026**. This post introduces the team's method and findings.
+
+**Authors:** Calvin Z. Qiao, Benjamin MacAdam, Mohammadarsh Khokhar, Pranav Balaji, Jiaqing Hu, and KangKang Yin.
+
+[Read the paper](https://www.cs.sfu.ca/~kkyin/papers/F3AMD.pdf) · [Publisher / DOI](https://doi.org/10.1111/cgf.70560) · [Publication entry](/publications#f3amd)
+
+![Comparison of CAMDM characters in green and F3AMD characters in purple at similar GPU runtime budgets.](/static/images/f3amd/crowd-comparison.png)
+
+_Figure 1 from Qiao et al. (2026), cropped from the open-access paper under its Creative Commons Attribution license. The figure illustrates character counts at similar runtime budgets; the comparisons use different denoising settings._
+
+## The Problem
+
+Autoregressive motion diffusion generates a short sequence, then uses recent motion as context for the next sequence. Repeating this process supports continuous animation controlled by a desired trajectory and motion style.
+
+The baseline Conditional Autoregressive Motion Diffusion Model (CAMDM) produces convincing motion, but its architecture and repeated denoising operations become expensive as the number of characters grows. Simply shrinking a model can also reduce motion quality or cause it to lose stylistic variety.
+
+## Architecture Overview
+
+F3AMD changes three parts of the pipeline together.
+
+### 1. Fourier Neural Operators
+
+Fourier Neural Operators (FNOs) are used in the encoder, decoder, and denoising backbone. Their spectral operations model relationships across the motion window, while temporal-domain processing complements those global interactions. This allows the model to work with a smaller latent representation; the recommended **F3AMD-FNO-96** configuration uses 96 latent dimensions.
+
+### 2. FiLM Conditioning
+
+Feature-wise Linear Modulation (FiLM) injects contextual information through feature scaling and shifting. Instead of concatenating all conditioning information with motion features, the network modulates its internal representation. This helps retain control information without the same computational overhead.
+
+### 3. Efficient Sampling
+
+The model combines a variance-exploding noise schedule with a deterministic DDIM sampler. In the reported experiments, F3AMD can produce high-quality motion with a single denoising step. Reducing the number of network evaluations compounds the gains from the smaller architecture.
+
+## Evaluation
+
+The paper evaluates models on **100STYLE** locomotion data resampled to 30 frames per second. Long rollouts contain 2,560 frames, allowing the evaluation to examine behavior across many generation windows.
+
+Quality is assessed from several perspectives: trajectory and facing-direction control, smoothness, foot sliding, diversity, distributional similarity, and style coverage. An **inter-round discontinuity** metric also measures jumps at window boundaries. These boundaries matter because a sequence can look plausible within each window while still breaking continuity between successive windows.
+
+The implementation uses **JAX**, with synthesis models compiled through **IREE** for CUDA and LLVM backends. The paper reimplements CAMDM in JAX for its main comparisons; the original PyTorch implementation is identified separately.
+
+## Results
+
+The recommended F3AMD-FNO-96 configuration reaches approximately **20 times the synthesis speed of the CAMDM baseline** in the reported CPU and GPU experiments while retaining comparable motion quality. The paper attributes the overall gain to both the architecture and the reduction from eight denoising steps to one.
+
+This is a result for the paper's model configurations, workloads, and hardware, rather than a universal speedup for every animation system. The relative advantage depends on factors such as crowd size, diffusion-window length, and sampling settings. See the paper's tables and runtime plots for the individual comparisons.
+
+## My Contributions
+
+My work on F3AMD focused on experimental validation and implementation. I conducted extensive ablation studies, refactored code to support the new framework, and independently explored whether alternative architectural choices were viable. I also organized experiment results, reported findings, and worked closely with the team to connect implementation decisions with the evidence from our evaluations.
+
+The performance results above describe the team's published system; my role was to help test and develop the framework through this experimental work.
+
+## Limitations and Future Directions
+
+The experiments focus primarily on locomotion. Broader actions and more heterogeneous motion data remain important tests. Long autoregressive rollouts can accumulate drift, and Fourier processing over finite windows can introduce boundary artifacts. The paper discusses these issues alongside possible stabilization strategies and comparisons with more efficient attention-based architectures.
+
+For me, the project highlights the importance of evaluating **efficiency, controllability, and motion quality together**. A faster model is useful only if the resulting animation still behaves well over time.
+
+## References
+
+Calvin Z. Qiao, Benjamin MacAdam, Mohammadarsh Khokhar, Pranav Balaji, Jiaqing Hu, and KangKang Yin. **F3AMD: Fast FiLM-Conditioned Fourier Autoregressive Motion Diffusion.** _Computer Graphics Forum_ 45(8), 2026 (SCA 2026). [doi:10.1111/cgf.70560](https://doi.org/10.1111/cgf.70560).
+
+The full citation is available on the [Publications page](/publications#f3amd), including a downloadable BibTeX entry.
