@@ -5,7 +5,7 @@ import { genPageMetadata } from 'app/seo'
 export const metadata = genPageMetadata({
   title: 'CV',
   description:
-    'Academic curriculum vitae of Jiaqing (Vincent) Hu, M.Sc. in Visual Computing, Simon Fraser University.',
+    'Academic curriculum vitae of Jiaqing (Vincent) Hu, Ph.D. student at Simon Fraser University.',
 })
 
 export default function CV() {
@@ -17,10 +17,10 @@ export default function CV() {
           Curriculum Vitae
         </h1>
         <p className="text-lg text-gray-500 dark:text-gray-400">
-          Jiaqing (Vincent) Hu · M.Sc. in Visual Computing
+          Jiaqing (Vincent) Hu · Ph.D. Student
         </p>
         <p className="max-w-2xl leading-7 text-gray-600 dark:text-gray-300">
-          Research in computer animation, generative motion models, and computer vision, with
+          Research interests in visual computing, reinforcement learning, and robotics, with
           experience in software engineering and university teaching.
         </p>
         <div className="flex flex-wrap items-center gap-4">

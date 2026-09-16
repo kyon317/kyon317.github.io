@@ -3,8 +3,7 @@ const siteMetadata = {
   title: "Vincent Hu's Blog",
   author: 'Vincent Hu',
   headerTitle: "Vincent Hu's Blog",
-  description:
-    'Research and projects in computer animation, generative motion models, and visual computing.',
+  description: 'Research and projects in visual computing, reinforcement learning, and robotics.',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://kyon317.github.io/',
